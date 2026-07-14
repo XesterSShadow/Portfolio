@@ -13,7 +13,7 @@
   --ink:#eee9f5; --dim:#8b849c; --faint:#5a5468;
   --blood:#c31432; --bloodH:#ff2e4d;
   --ecto:#2ee6a8; --ectoH:#67ffd0;
-  --violet:#8b6cff; --gold:#e0a83c;
+  --violet:#8b6cff; --gold:#e0a83c; --sky:#57b7ff;
   --line:rgba(238,233,245,.08); --line2:rgba(238,233,245,.16);
   --serif:'Cinzel','Times New Roman',serif;
   --mono:'JetBrains Mono','SFMono-Regular',Consolas,monospace;
@@ -258,6 +258,7 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 .tag.combat{color:var(--bloodH);border-color:rgba(255,46,77,.35);background:rgba(195,20,50,.09)}
 .tag.core{color:var(--ectoH);border-color:rgba(46,230,168,.35);background:rgba(46,230,168,.07)}
 .tag.data{color:var(--violet);border-color:rgba(139,108,255,.35);background:rgba(139,108,255,.09)}
+.tag.ui{color:var(--sky);border-color:rgba(87,183,255,.35);background:rgba(87,183,255,.09)}
 .sys p{font-size:.82rem}
 
 .work-pick{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:26px 0 8px}
@@ -315,6 +316,19 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.7);opacity:0}}
 .media small{font-family:var(--mono);font-size:.7rem;color:var(--faint);letter-spacing:.08em}
 
+.shots{display:grid;gap:10px;grid-template-columns:1fr}
+.shots.multi{grid-template-columns:repeat(2,1fr)}
+@media(max-width:600px){.shots.multi{grid-template-columns:1fr}}
+.shot{position:relative;display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  background:var(--bg2);line-height:0}
+.shot img{width:100%;height:auto;display:block;transition:transform .6s var(--ease)}
+.shot:hover img{transform:scale(1.04)}
+.shot::after{content:"Open full size";position:absolute;right:10px;bottom:10px;font-family:var(--mono);
+  font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+  background:rgba(8,7,10,.8);border:1px solid var(--line2);padding:5px 9px;border-radius:6px;
+  opacity:0;transition:opacity .3s var(--ease)}
+.shot:hover::after{opacity:1}
+
 .bd{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:24px}
 @media(max-width:940px){.bd{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:460px){.bd{grid-template-columns:1fr}}
@@ -338,7 +352,7 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 .toggle button.on{background:var(--ecto);color:#08070a;font-weight:700}
 .toggle button:active{transform:scale(.95)}
 .devex{font-family:var(--mono);font-size:.7rem;color:var(--faint);margin-bottom:26px}
-.rates{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rates{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
 @media(max-width:960px){.rates{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.rates{grid-template-columns:1fr}}
 .rate{padding:28px 24px;display:flex;flex-direction:column}
@@ -500,7 +514,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
         <div class="status rv"><i></i> Available for commissions</div>
         <h1 class="rv d1"><span class="glitch" data-text="XESTER">XESTER</span></h1>
         <div class="tw rv d1"><span class="tw-txt" id="twTxt"></span><span class="tw-cur"></span></div>
-        <p class="copy rv d2">A Roblox systems developer building the hard stuff: server-authoritative anti-cheat, combat frameworks, downed and revive states, spectating, inventories and full game architecture. Clean, modular Lua that scales with your game.</p>
+        <p class="copy rv d2">5 years scripting Roblox, and 5 years doing UI. I build the systems underneath and the screens on top, which means one less person for you to chase.</p>
         <div class="btns rv d3">
           <a href="#contact" class="btn btn-p"><span>Hire me</span></a>
           <a href="#work" class="btn btn-g"><span>View my work</span></a>
@@ -530,16 +544,16 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
     <div class="about">
       <div class="rv d1"><div class="sigil"><span>X</span></div></div>
       <div class="rv d2">
-        <h2>Systems that <span class="grad">hold under pressure</span></h2>
-        <p class="lede">I'm Xester. I don't build single features, I build the systems your whole game leans on. Anti-cheat that assumes the client is lying. Combat that stays fair with 40 players in a server. Downed states, revives, spectating, inventories, matchmaking, saves. Everything server-authoritative, OOP first, written in module scripts your future dev can actually read.</p>
-        <p class="lede" style="margin-top:12px">If a system is complex enough that other scripters quote you a "maybe", that's usually the one I want.</p>
+        <h2>The systems, and the <span class="grad">screens on top of them</span></h2>
+        <p class="lede">I'm Xester. I've been scripting Roblox for 5 years and doing UI for about as long, mostly because I got tired of waiting on designers who never delivered. So now I do both. Anti-cheat, combat, parties, revives, spectating, saves, and then the menus and HUDs that sit on top of them.</p>
+        <p class="lede" style="margin-top:12px">The nice part is you're not stuck playing messenger between two freelancers who've never spoken to each other. The UI actually fits the system, because the same person wrote both.</p>
       </div>
     </div>
     <div class="feat">
-      <div class="card rv d1"><span class="ic">&#128737;</span><h3>Exploit aware</h3><p>Server-authoritative by default. I write assuming every client is compromised.</p></div>
-      <div class="card rv d2"><span class="ic">&#9638;</span><h3>Built to extend</h3><p>Add a weapon, a stage, an item with a config file, not a rewrite.</p></div>
-      <div class="card rv d3"><span class="ic">&#9889;</span><h3>Fast turnaround</h3><p>Clear timelines and progress updates you never have to chase.</p></div>
-      <div class="card rv d4"><span class="ic">&#9673;</span><h3>Direct line</h3><p>DMs open from first message to final handover, plus post-delivery support.</p></div>
+      <div class="card rv d1"><span class="ic">&#128737;</span><h3>Exploit aware</h3><p>I assume every client is lying to me. Saves a lot of pain later.</p></div>
+      <div class="card rv d2"><span class="ic">&#9638;</span><h3>Design and code</h3><p>Both, for 5 years. So the UI and the system under it actually fit together.</p></div>
+      <div class="card rv d3"><span class="ic">&#9889;</span><h3>No chasing</h3><p>You get updates without asking. I know how annoying being left on read is.</p></div>
+      <div class="card rv d4"><span class="ic">&#9673;</span><h3>I stick around</h3><p>Found a bug two weeks later? Message me. I fix my own mess for free.</p></div>
     </div>
   </div>
 </section>
@@ -549,7 +563,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
     <div class="rv">
       <div class="sec-title">Systems</div>
       <h2>What I <span class="grad">build</span></h2>
-      <p class="lede">Every one of these has been built, tested and shipped. Filter by category, or ask about something not on the list.</p>
+      <p class="lede">All stuff I've actually built and shipped. If what you need isn't on here, ask anyway.</p>
     </div>
     <div class="filters rv d1" id="filters"></div>
     <div class="sys-grid rv d2" id="sysGrid"></div>
@@ -559,7 +573,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 <section id="work">
   <div class="wrap">
     <div class="rv"><div class="sec-title">Work</div><h2>Pick a <span class="grad">build</span></h2>
-    <p class="lede">Choose a project below. Each one opens with its own set of clips you can expand.</p></div>
+    <p class="lede">Pick one and open the clips. More going up as I get round to recording them.</p></div>
     <div class="work-pick rv d1">
       <div class="sel" id="workSel">
         <button type="button" id="workBtn"><span id="workLabel">Loading</span><span class="car">&#9662;</span></button>
@@ -573,7 +587,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 <section id="rates">
   <div class="wrap">
     <div class="rv"><div class="sec-title">Rates</div><h2>Commission <span class="grad">rates</span></h2>
-    <p class="lede">Competitive, transparent, and priced against what the job actually takes. Most projects land between tiers, so send your scope and I'll quote it properly.</p>
+    <p class="lede">Rough starting points, not a menu. Most jobs land somewhere between these, so tell me what you need and I'll give you a real number.</p>
     <div class="toggle" id="curToggle">
       <button class="on" data-c="usd">USD</button>
       <button data-c="rbx">Robux</button>
@@ -584,10 +598,10 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
     <div class="revshare rv">
       <div class="rs-tag">Revenue share</div>
-      <h3>Want me invested in the game itself?</h3>
-      <p>For the right project I'll take a percentage of the game's earnings on top of the build. A stake means I care how the game performs after handover, not just whether the code compiles. Two conditions: there is still an upfront payment, and the percentage is agreed in writing before any work starts. I don't work on promises of future revenue alone.</p>
+      <h3>Want me actually invested in the game?</h3>
+      <p>For the right game I'll take a cut of the earnings on top of the build fee. If I own a slice of it, I care whether the thing actually does numbers, not just whether it compiles. Two rules though. There's still money upfront, and we agree the percentage in writing before I touch anything. I've been offered "I'll pay you when we blow up" enough times to know how that one ends.</p>
       <ul>
-        <li>Upfront payment is always required, no exceptions</li>
+        <li>Money upfront regardless, no exceptions</li>
         <li>Percentage agreed and written down before work begins</li>
         <li>A proper agreement, verbal and in writing, before anything starts</li>
       </ul>
@@ -596,7 +610,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
     <div class="disclaimer rv">
       <b>These prices are examples only.</b>
-      They are a rough starting point to show how I scope work, and they do not reflect a real quote. Your project could be cheaper or a lot more expensive depending on complexity, how much existing code I have to work around, and how tight the deadline is. Message me with the details and I'll price your specific case.
+      They're here to show roughly how I scope things, not to quote you. Yours could come in cheaper, or a lot more, depending on how messy the existing code is and how fast you need it. Message me and I'll tell you straight.
     </div>
 
     <div class="pay rv"><span>Payment:</span><b>PayPal</b><b>Robux (group funds)</b><span>50% upfront, 50% on approval.</span></div>
@@ -605,7 +619,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="process">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Process</div><h2>How a commission <span class="grad">runs</span></h2></div>
+    <div class="rv"><div class="sec-title">Process</div><h2>How this <span class="grad">usually goes</span></h2></div>
     <div class="proc" id="procList"></div>
     <div class="terms">
       <div class="term rv"><b>Deposit required</b>50% upfront to begin any project.</div>
@@ -619,7 +633,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 <section id="reviews">
   <div class="wrap">
     <div class="rv"><div class="sec-title">Reviews</div><h2>What clients <span class="grad">say</span></h2>
-    <p class="lede">Placeholder reviews. Swap in your real ones in the REVIEWS config.</p></div>
+    <p class="lede">People I've built things for.</p></div>
   </div>
   <div class="rev-wrap">
     <div class="rev-run" id="rev1"></div>
@@ -629,7 +643,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="faq">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">FAQ</div><h2>Before you <span class="grad">message</span></h2></div>
+    <div class="rv"><div class="sec-title">FAQ</div><h2>Things people <span class="grad">always ask</span></h2></div>
     <div class="faq" id="faqList"></div>
   </div>
 </section>
@@ -640,7 +654,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
     <div class="cbox rv d1">
       <div class="slots"><i></i> Available for commissions</div>
       <h2 style="max-width:640px">Let's build something that <span class="grad">doesn't break</span>.</h2>
-      <p class="lede">Send your project details and budget. You'll get a straight answer on scope, price and timeline, usually within 24 hours.</p>
+      <p class="lede">Tell me what you're building and what you've got to spend. I'll tell you if I'm the right person for it and what it'll cost. Usually reply within a day.</p>
       <div class="links" id="links"></div>
       <a href="#" class="btn btn-p cta-discord" style="position:relative;z-index:2"><span>Start a commission</span></a>
     </div>
@@ -648,25 +662,67 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 </section>
 
 <footer><div class="foot">
-  <span>XESTER &copy; 2026 &middot; Roblox Systems Development</span>
+  <span>XESTER &copy; 2026 &middot; Roblox Development</span>
   <span>Commissions open &middot; DMs 24/7</span>
 </div></footer>
 
 <script>
 
 const WORK = [
+
   {
     visible: true,
-    id: "anticheat",
-    label: "Anti-Cheat Suite",
-    kind: "Security",
-    title: "Server-Authoritative Anti-Cheat",
-    lede: "A full exploit-defence layer for a combat game overrun by flyers, speeders and reach hackers. Every action is now validated server side, with graded responses instead of blanket kicks.",
+    id: "loading",
+    label: "Loading Screen",
+    kind: "UI",
+    title: "Custom Loading Screen",
+    lede: "Replaces the default Roblox load-in. It actually preloads your assets instead of guessing, so the bar means something and players aren't dropped into a half-built map.",
     clips: [
-      { visible:true, label:"Exploit detection in action", desc:"Speed, fly and teleport flags firing live against a test exploiter.", video:"", embed:"" },
-      { visible:true, label:"Reach and wall-hit rejection", desc:"Hits outside legal range or through geometry are dropped server side.", video:"", embed:"" },
-      { visible:true, label:"Admin flag dashboard", desc:"Live offence log with escalation from warn to soft-kick to ban.", video:"", embed:"" }
+      { visible:true, label:"Loading screen in action", desc:"Full load-in from join through to spawn.",
+        video:"", embed:"", image:"", images:[] }
     ],
+    breakdown: [
+      ["01","Asset preloading","Queues and loads assets before the player spawns, so nothing pops in late."],
+      ["02","Real progress","The bar tracks actual load state, not a fake timer counting to 100."],
+      ["03","Custom design","Designed and scripted to match the game, animated in and out."],
+      ["04","Clean handoff","Fades out and releases the camera the moment the game is ready."]
+    ],
+    arch: [
+      ["LoadingController","owns the screen, the progress state and the fade out"],
+      ["AssetQueue","preloads assets and reports real progress"],
+      ["CameraLock","holds the camera until the game is ready to hand over"]
+    ]
+  },
+
+  {
+    visible: true,
+    id: "party",
+    label: "Party System",
+    kind: "Core systems",
+    title: "Party System",
+    lede: "Make a party, invite your friends, queue together. The annoying part is keeping everyone in the same server through the teleport, and that's the part this handles.",
+    clips: [
+      { visible:true, label:"Creating and joining a party", desc:"The invite flow from both sides.",
+        video:"", embed:"", image:"", images:[] }
+    ],
+    breakdown: [
+      ["01","Create and invite","Players make a party and send invites. Accept, decline and timeout all handled."],
+      ["02","Live party UI","Members, leader and ready state update in real time for everyone in the party."],
+      ["03","Leader controls","Kick, promote and start the queue. Leadership passes on automatically if the leader leaves."],
+      ["04","Teleport together","The whole party lands in the same server, with nobody dropped on the way."]
+    ],
+    arch: [
+      ["PartyService","server-side source of truth for every party"],
+      ["InviteHandler","invite, accept, decline and timeout logic"],
+      ["PartyUI","live member list and ready state on the client"],
+      ["TeleportBridge","carries the party through TeleportService as one group"]
+    ]
+  },
+
+  { visible: false, id: "anticheat", label: "Anti-Cheat Suite", kind: "Security",
+    title: "Server-Authoritative Anti-Cheat",
+    lede: "A full exploit-defence layer. Every action validated server side, with graded responses instead of blanket kicks.",
+    clips: [ { visible:true, label:"Exploit detection in action", desc:"Speed, fly and teleport flags firing live.", video:"", embed:"", image:"", images:[] } ],
     breakdown: [
       ["01","Movement checks","Speed, fly, noclip and teleport detection with lag tolerance."],
       ["02","Hit validation","Reach, line of sight and fire-rate checks on every damage event."],
@@ -680,18 +736,11 @@ const WORK = [
       ["FlagStore","persistent offence history with escalation rules"]
     ]
   },
-  {
-    visible: true,
-    id: "combat",
-    label: "Combat Framework",
-    kind: "Combat",
+
+  { visible: false, id: "combat", label: "Combat Framework", kind: "Combat",
     title: "Modular Combat Framework",
-    lede: "A weapon-agnostic combat system built as a base other developers could extend. New weapons drop in as a single config module, no core logic touched.",
-    clips: [
-      { visible:true, label:"Melee combos and parries", desc:"Attack, block, parry, stun and recovery states running clean.", video:"", embed:"" },
-      { visible:true, label:"Adding a new weapon in 60 seconds", desc:"One config module, zero changes to the core.", video:"", embed:"" },
-      { visible:true, label:"Lag compensation test", desc:"Server rewinds to the attacker's view before resolving hits.", video:"", embed:"" }
-    ],
+    lede: "A weapon-agnostic combat system built as a base other developers could extend.",
+    clips: [ { visible:true, label:"Melee combos and parries", desc:"Attack, block, parry, stun and recovery.", video:"", embed:"", image:"", images:[] } ],
     breakdown: [
       ["01","Lag compensation","Server rewinds positions to the attacker's view before resolving."],
       ["02","Config-driven weapons","Damage, reach, arc, cooldown and effects in one module."],
@@ -702,22 +751,14 @@ const WORK = [
       ["CombatService","resolves swings, applies damage, owns the state machine"],
       ["HitboxQuery","arc and reach queries with rewind support"],
       ["WeaponConfig","one module per weapon, the only file you touch"],
-      ["EffectService","muzzle, impact, blood and sound, fully decoupled"]
+      ["EffectService","muzzle, impact and sound, fully decoupled"]
     ]
   },
-  {
-    visible: true,
-    id: "survival",
-    label: "Downed, Revive and Spectate",
-    kind: "Core systems",
+
+  { visible: false, id: "survival", label: "Downed, Revive and Spectate", kind: "Core systems",
     title: "Survival Loop Framework",
-    lede: "The full survival loop for a horror game. Players go down instead of dying, teammates revive them under pressure, and anyone fully out drops into a spectator camera that keeps them in the round.",
-    clips: [
-      { visible:true, label:"Downed state and bleedout", desc:"Ragdoll, crawl, bleedout timer and revive prompts for nearby players.", video:"", embed:"" },
-      { visible:true, label:"Hold-to-revive with interruption", desc:"Revive limits, self-revive items and interruption on damage.", video:"", embed:"" },
-      { visible:true, label:"Spectator camera cycling", desc:"Follow cam, target cycling, team filters and live spectator counts.", video:"", embed:"" },
-      { visible:true, label:"Party wipe and stage recovery", desc:"Stage-aware respawn when the whole party goes down.", video:"", embed:"" }
-    ],
+    lede: "Players go down instead of dying, teammates revive them under pressure, and anyone fully out drops into a spectator camera.",
+    clips: [ { visible:true, label:"Downed state and bleedout", desc:"Ragdoll, crawl, bleedout and revive prompts.", video:"", embed:"", image:"", images:[] } ],
     breakdown: [
       ["01","Downed state","Ragdoll, crawl, bleedout timer and revive prompts."],
       ["02","Revive mechanics","Hold to revive with interruption, limits and self-revive items."],
@@ -731,18 +772,11 @@ const WORK = [
       ["StageManager","checkpoint sync and stage-aware respawn routing"]
     ]
   },
-  {
-    visible: true,
-    id: "economy",
-    label: "Inventory, Shop and Saves",
-    kind: "Data",
+
+  { visible: false, id: "economy", label: "Inventory, Shop and Saves", kind: "Data",
     title: "Economy and Persistence Stack",
-    lede: "Grid inventory, shop, trading and a DataStore layer with session locking and retry logic, built for a game that was silently losing saves.",
-    clips: [
-      { visible:true, label:"Grid inventory and equipping", desc:"Stacking, drag and drop, equip slots and hotbar.", video:"", embed:"" },
-      { visible:true, label:"Shop and currency flow", desc:"Purchases, gamepasses and dev products wired to the save layer.", video:"", embed:"" },
-      { visible:true, label:"DataStore stress test", desc:"Session locking and retry logic under forced failures.", video:"", embed:"" }
-    ],
+    lede: "Grid inventory, shop, trading and a DataStore layer with session locking and retry logic.",
+    clips: [ { visible:true, label:"Grid inventory and equipping", desc:"Stacking, drag and drop, equip slots.", video:"", embed:"", image:"", images:[] } ],
     breakdown: [
       ["01","Grid inventory","Stacking, equipping, hotbar and drag and drop."],
       ["02","Shop and currency","Purchases, gamepasses and dev products, all server validated."],
@@ -763,6 +797,8 @@ const DEVEX_RATE = 0.0035;
 const PLANS = [
   { visible:true, name:"Quick Fix", sub:"Bugs and small tasks", usd:15, eta:"Same day to 48h",
     items:["Bug fixes and script cleanup","Health and status bars","Leaderstats","Small UI tweaks","Gamepass or dev product setup"] },
+  { visible:true, name:"UI Design", sub:"Designed and scripted", usd:30, eta:"2 to 3 days",
+    items:["Menus, HUDs and shop screens","Designed and fully scripted","Animated transitions","Scales properly on mobile","Delivered as editable modules"] },
   { visible:true, name:"Small System", sub:"One contained feature", usd:45, eta:"2 to 4 days",
     items:["Shops and currency","Simple inventories","Daily rewards and streaks","Teleport and lobby flow","Basic admin commands"] },
   { visible:true, name:"Core System", sub:"A real system, built properly", usd:125, eta:"4 to 8 days", hot:true,
@@ -783,6 +819,11 @@ const DISCORD_TAG = "@xesterr";
 const DISCORD_URL = "https://discord.com/users/730796390716014622";
 
 const SYSTEMS = [
+  {c:"ui",t:"UI Design and Build",d:"I design the interface and script it. Menus, HUDs, shops and inventories, taken from mockup to working system."},
+  {c:"ui",t:"Menus and Main Screens",d:"Title screens, settings, lobby UI. Animated, responsive, and scaled properly on every device."},
+  {c:"ui",t:"HUDs and Game Feedback",d:"Health, ammo, prompts, notifications and damage indicators. The layer that makes a game feel responsive."},
+  {c:"ui",t:"Loading Screens",d:"Custom load-in with real asset preloading and a clean handoff into the game."},
+  {c:"ui",t:"Mobile and Console Scaling",d:"UI that doesn't fall apart on a phone. Proper anchor points, scaling and touch targets."},
   {c:"security",t:"Anti-Cheat and Exploit Hardening",d:"Server-authoritative validation: speed, fly, teleport, reach, fire rate and remote spam, with flagging and auto-action."},
   {c:"security",t:"RemoteEvent Security",d:"Rate limiting, argument validation and sanity checks so a compromised client can't forge state."},
   {c:"security",t:"Admin and Moderation Panels",d:"Role-gated commands, live player list, ban, kick, mute, audit logs and in-game reporting."},
@@ -804,24 +845,25 @@ const SYSTEMS = [
 ];
 
 const FAQS = [
-  ["What kind of systems do you take on?","Anything server side and system level: anti-cheat, combat, revive and downed states, spectating, inventories, DataStores, matchmaking, admin panels, AI, full frameworks. If it's complex and other scripters are hedging, that's usually the job I want."],
-  ["Do you work in Robux or USD?","Both. PayPal in USD, or Robux via group funds. Robux prices are calculated at the DevEx rate so neither of us loses on the conversion. Use the toggle above the pricing to switch."],
-  ["Your rates are higher than some scripters. Why?","Because you're paying for a system that holds up, not a script that works in Studio and falls over in a live server. Server-authoritative code, real testing, documentation and free bug fixes after handover. If you want the cheapest quote on the server, I'm probably not your dev."],
-  ["Do you take revenue share instead of payment?","I'll take a percentage on top of the build for the right project, but never instead of it. There is always an upfront payment, and the percentage gets agreed in writing before work starts. Pitching me a share of future earnings alone is a no."],
-  ["How long does a commission take?","Quick fixes are same day to 48 hours. A small system is 2 to 4 days. A core system is usually 4 to 8 days. Bigger frameworks are quoted individually. You get a fixed timeline with your quote."],
-  ["Will I be able to edit the code afterwards?","Yes, that's the point. Everything is commented OOP module scripts with configs separated from logic, so you or your future dev can extend it without a rewrite."],
-  ["What if I find a bug after delivery?","Bugs in code I wrote get fixed free. I don't hand off and disappear."],
-  ["Can you fix or harden an existing game?","Often the best value I offer. Send me the place and I'll audit what's client trusted, then move the truth back to the server without wrecking how it feels to play."],
-  ["Do you offer ongoing work?","Yes. If you have a live game that keeps shipping, message me and we'll work out an arrangement that fits, whether that's recurring commissions or a revenue share."]
+  ["Do you do UI as well as scripting?","Yeah, both, for about 5 years each. Menus, HUDs, loading screens, I design them and script them myself. Means you don't need a designer and a scripter trying to meet in the middle. If you already have a designer, that's fine too, I'll just build from their mockups."],
+  ["What kind of stuff do you take on?","Mostly server side systems. Anti-cheat, combat, revive and downed, spectating, parties, inventories, DataStores, matchmaking, admin panels, AI. If it's the sort of job other scripters go quiet on, that's usually the one I want."],
+  ["Robux or USD?","Either. PayPal for USD, group funds for Robux. Robux is worked out at the DevEx rate so neither of us gets shafted on the conversion. There's a toggle above the prices."],
+  ["Why are you more expensive than some scripters?","Because you're paying for something that survives a live server, not something that works in Studio and falls apart the second 30 people join. If you want the cheapest quote in the server, I'm honestly not your guy, and that's fine."],
+  ["Will you work for a percentage instead of payment?","On top of a build fee, sure, for the right game. Instead of one, no. There's always money upfront and we write the percentage down before I start. Nothing personal, I've just heard the pitch too many times."],
+  ["How long does it take?","Small fixes, same day or two. UI, 2 to 3 days. A proper system, 4 to 8. Bigger stuff I'll quote you properly. Whatever number I give you is the number."],
+  ["Can I edit the code after?","That's the whole point. It's commented, split into modules, with the configs kept away from the logic. You or whoever you hire next can add to it without tearing it apart."],
+  ["What if it breaks later?","If I wrote it and it broke, that's my problem. Message me and I'll fix it, no charge."],
+  ["Can you fix a game that's already made?","Probably the most useful thing I do. Send me the place, I'll go through what the client is being trusted with, and move that back to the server without ruining how it plays."],
+  ["Do you do ongoing work?","Yeah. If your game's live and you keep shipping updates, message me and we'll figure something out that works for both of us."]
 ];
 
 const PROCESS = [
-  ["Scope and quote","You send what you need. I ask the questions that matter, then quote a fixed price and timeline."],
-  ["Deposit to start","50% upfront secures your slot in the queue and I begin immediately."],
-  ["Build and check-ins","Regular progress updates with clips as milestones land. No silent weeks."],
-  ["Demo for review","You get a working video demo before any final payment changes hands."],
-  ["Handover","Final 50% on approval, then the files are yours, commented and with setup notes."],
-  ["Support window","Bugs in my code get fixed free. I don't hand off and disappear."]
+  ["Tell me what you need","I ask a few questions, then give you a fixed price and a date. No moving goalposts later."],
+  ["Half upfront","50% and the slot's yours. I start the same day."],
+  ["I build it","You get clips as things start working, so you're not sat wondering if I ghosted you."],
+  ["You see it working","Video demo before you pay the rest. If it's not what you pictured, we sort it out then."],
+  ["Handover","Rest of the payment and the files are yours. Commented, with notes, so you're not lost in it."],
+  ["After","If something I wrote breaks, that's on me. I'll fix it, no extra charge."]
 ];
 
 (function(){
@@ -1001,6 +1043,8 @@ let ert;
 addEventListener('resize',()=>{clearTimeout(ert);ert=setTimeout(()=>{sizeEkg();sizeLekg();},180)},{passive:true});
 
 const PHRASES=[
+  "UI design, built and scripted.",
+  "Menus, HUDs and loading screens.",
   "Anti-cheat and exploit hardening.",
   "Combat and weapon frameworks.",
   "Downed states, revives and spectating.",
@@ -1164,12 +1208,12 @@ $$('#ctabs button').forEach(b=>b.addEventListener('click',()=>{
   $('#cbody').innerHTML=toLines(SNIPS[+b.dataset.i][1]);
 }));
 
-const MW=["Anti-Cheat","Combat Systems","Revive and Downed","Spectating","Inventories","DataStores","Matchmaking",
+const MW=["UI Design","HUDs","Menus","Loading Screens","Anti-Cheat","Combat Systems","Revive and Downed","Spectating","Inventories","DataStores","Matchmaking",
  "Admin Panels","FPS Frameworks","Melee Combat","Round Logic","Shops","Progression","Ragdolls","Pathfinding AI",
  "UI Systems","Optimization","Module Scripts"];
 $('#marq').innerHTML=(()=>{const c=MW.map(w=>`<span><em>&#10010;</em>${w}</span>`).join('');return c+c;})();
 
-const CATS=[["all","All"],["security","Security"],["combat","Combat"],["core","Core systems"],["data","Data and UI"]];
+const CATS=[["all","All"],["ui","UI design"],["security","Security"],["combat","Combat"],["core","Core systems"],["data","Data"]];
 $('#filters').innerHTML=CATS.map((c,i)=>`<button class="filt ${i?'':'on'}" data-f="${c[0]}">${c[1]}</button>`).join('');
 $('#sysGrid').innerHTML=SYSTEMS.map(s=>
  `<div class="sys card" data-c="${s.c}"><div class="top"><h3>${s.t}</h3><span class="tag ${s.c}">${s.c}</span></div><p>${s.d}</p></div>`).join('');
@@ -1190,9 +1234,16 @@ if(shown.length){
       <p class="lede">${w.lede}</p>
       ${clips.length?`<div class="clips">${clips.map((c,j)=>{
         let inner;
-        if(c.embed) inner=`<div class="media"><iframe src="${c.embed}" loading="lazy" allowfullscreen title="${esc(c.label)}"></iframe></div>`;
+        const shots = (c.images && c.images.length) ? c.images : (c.image ? [c.image] : []);
+        if(shots.length){
+          inner=`<div class="shots ${shots.length>1?'multi':''}">`+shots.map(src=>
+            `<a class="shot" href="${src}" target="_blank" rel="noopener">
+               <img src="${src}" alt="${esc(c.label)}" loading="lazy">
+             </a>`).join('')+`</div>`;
+        }
+        else if(c.embed) inner=`<div class="media"><iframe src="${c.embed}" loading="lazy" allowfullscreen title="${esc(c.label)}"></iframe></div>`;
         else if(c.video) inner=`<div class="media"><video src="${c.video}" controls preload="none" playsinline></video></div>`;
-        else inner=`<div class="media"><div class="ph"><div class="play">&#9654;</div><small>Add a clip: set video or embed in the WORK config</small></div></div>`;
+        else inner=`<div class="media"><div class="ph"><div class="play">&#9654;</div><small>Add a video, embed or image in the WORK config</small></div></div>`;
         return `<div class="clip"><button type="button">
             <span class="ct"><span class="cn">${String(j+1).padStart(2,'0')}</span><span class="cl">${c.label}</span></span>
             <span class="pm">+</span></button>
@@ -1225,7 +1276,16 @@ if(shown.length){
     const clip=btn.parentElement,body=clip.querySelector('.body'),open=clip.classList.contains('open');
     const siblings=clip.parentElement.querySelectorAll('.clip');
     siblings.forEach(c=>{c.classList.remove('open');c.querySelector('.body').style.maxHeight=null;});
-    if(!open){clip.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
+    if(!open){
+      clip.classList.add('open');
+      body.style.maxHeight=body.scrollHeight+'px';
+      body.querySelectorAll('img').forEach(im=>{
+        if(im.complete) return;
+        im.addEventListener('load',()=>{
+          if(clip.classList.contains('open')) body.style.maxHeight=body.scrollHeight+'px';
+        },{once:true});
+      });
+    }
   });
 }
 
@@ -1260,12 +1320,41 @@ $('#procList').innerHTML=PROCESS.map((p,i)=>
 const rcard=r=>`<div class="rev"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"${r.text}"</p>
   <div class="who"><div class="av">${r.name.slice(0,2).toUpperCase()}</div>
   <div><b>${r.name}</b><small>${r.role}</small></div></div></div>`;
-const mid=Math.ceil(REVIEWS.length/2);
-const rowA=REVIEWS.slice(0,mid),rowB=REVIEWS.slice(mid);
-const fill=(arr,el,dur)=>{const html=arr.map(rcard).join('');el.innerHTML=html+html;
-  el.style.setProperty('--dur',dur+'s');el.style.setProperty('--dur2',dur+'s');};
-fill(rowA,$('#rev1'),Math.max(40,rowA.length*11));
-fill(rowB,$('#rev2'),Math.max(48,rowB.length*13));
+
+const REV_CARD_W=336;
+const REV_SPEED=55;
+
+function fillRow(el,arr,offset){
+  if(!el||!arr.length)return;
+  const setW=arr.length*REV_CARD_W;
+  const reps=Math.max(2,Math.ceil((innerWidth+REV_CARD_W)/setW));
+  let half='';
+  for(let i=0;i<reps;i++){
+    const shifted=arr.slice((i+offset)%arr.length).concat(arr.slice(0,(i+offset)%arr.length));
+    half+=shifted.map(rcard).join('');
+  }
+  el.innerHTML=half+half;
+  const dur=Math.round((setW*reps)/REV_SPEED);
+  el.style.setProperty('--dur',dur+'s');
+  el.style.setProperty('--dur2',dur+'s');
+}
+
+function buildReviews(){
+  if(!REVIEWS.length)return;
+  let rowA,rowB;
+  if(REVIEWS.length===1){ rowA=REVIEWS; rowB=REVIEWS; }
+  else{
+    const mid=Math.ceil(REVIEWS.length/2);
+    rowA=REVIEWS.slice(0,mid);
+    rowB=REVIEWS.slice(mid);
+    if(!rowB.length) rowB=rowA;
+  }
+  fillRow($('#rev1'),rowA,0);
+  fillRow($('#rev2'),rowB,1);
+}
+buildReviews();
+let revT;
+addEventListener('resize',()=>{clearTimeout(revT);revT=setTimeout(buildReviews,250);},{passive:true});
 
 $('#faqList').innerHTML=FAQS.map(f=>
  `<div class="q rv"><button type="button"><span>${f[0]}</span><span class="pm">+</span></button><div class="a"><p>${f[1]}</p></div></div>`).join('');
