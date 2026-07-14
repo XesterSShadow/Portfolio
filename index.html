@@ -306,9 +306,9 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
   transition:opacity .45s var(--ease) .08s,transform .45s var(--ease) .08s}
 .clip.open .inner{opacity:1;transform:none}
 .clip p.desc{color:var(--dim);font-size:.87rem;font-weight:300;margin-bottom:14px}
-.media{aspect-ratio:16/9;border:1px dashed var(--line2);border-radius:10px;display:grid;place-items:center;
+.media{aspect-ratio:16/9;width:100%;max-width:760px;margin:0 auto;border:1px solid var(--line2);border-radius:10px;display:grid;place-items:center;
   background:var(--bg2);position:relative;overflow:hidden}
-.media video,.media iframe{width:100%;height:100%;border:0;display:block;object-fit:cover}
+.media video,.media iframe{width:100%;height:100%;border:0;display:block;object-fit:contain;background:#000;border-radius:10px}
 .media .ph{display:grid;place-items:center;gap:12px;text-align:center;padding:16px}
 .media .play{width:54px;height:54px;border-radius:50%;border:1px solid var(--ecto);display:grid;place-items:center;
   color:var(--ectoH);position:relative}
@@ -316,7 +316,7 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.7);opacity:0}}
 .media small{font-family:var(--mono);font-size:.7rem;color:var(--faint);letter-spacing:.08em}
 
-.shots{display:grid;gap:10px;grid-template-columns:1fr}
+.shots{display:grid;gap:10px;grid-template-columns:1fr;width:100%;max-width:760px;margin:0 auto}
 .shots.multi{grid-template-columns:repeat(2,1fr)}
 @media(max-width:600px){.shots.multi{grid-template-columns:1fr}}
 .shot{position:relative;display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;
@@ -679,7 +679,7 @@ const WORK = [
     lede: "Replaces the default Roblox load-in. It actually preloads your assets instead of guessing, so the bar means something and players aren't dropped into a half-built map.",
     clips: [
       { visible:true, label:"Loading screen in action", desc:"Full load-in from join through to spawn.",
-        video:"Loadingscreen+warning.mp4", embed:"", image:"", images:[] }
+        video:"assets/loading-screen.mp4", embed:"", image:"", images:[] }
     ],
     breakdown: [
       ["01","Asset preloading","Queues and loads assets before the player spawns, so nothing pops in late."],
@@ -1242,7 +1242,7 @@ if(shown.length){
              </a>`).join('')+`</div>`;
         }
         else if(c.embed) inner=`<div class="media"><iframe src="${c.embed}" loading="lazy" allowfullscreen title="${esc(c.label)}"></iframe></div>`;
-        else if(c.video) inner=`<div class="media"><video src="${c.video}" controls preload="none" playsinline></video></div>`;
+        else if(c.video) inner=`<div class="media"><video src="${c.video}" controls preload="metadata" playsinline></video></div>`;
         else inner=`<div class="media"><div class="ph"><div class="play">&#9654;</div><small>Add a video, embed or image in the WORK config</small></div></div>`;
         return `<div class="clip"><button type="button">
             <span class="ct"><span class="cn">${String(j+1).padStart(2,'0')}</span><span class="cl">${c.label}</span></span>
