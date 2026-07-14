@@ -125,6 +125,13 @@ nav.stuck{padding:11px 0;background:rgba(20,11,7,.86);backdrop-filter:blur(14px)
 .wrap{max-width:1220px;margin:0 auto;padding:0 26px;position:relative;z-index:3}
 section{padding:110px 0;position:relative;z-index:3}
 @media(max-width:760px){section{padding:70px 0}}
+.sec-wrap{position:relative}
+#rates .sec-wrap,#reviews .sec-wrap{text-align:right}
+#rates .sec-wrap .sec-title::after,#reviews .sec-wrap .sec-title::after{margin-left:auto}
+#rates .sec-wrap .ghost,#reviews .sec-wrap .ghost{left:auto;right:-.06em}
+.sec-wrap .ghost{position:absolute;top:-.42em;left:-.06em;font-family:var(--serif);font-style:italic;
+  font-size:clamp(7rem,17vw,13rem);line-height:1;color:transparent;
+  -webkit-text-stroke:1px rgba(224,162,78,.13);pointer-events:none;user-select:none;z-index:-1}
 .sec-title{font-family:var(--serif);font-weight:600;text-transform:none;
   font-size:clamp(2.6rem,7vw,4.6rem);line-height:1;letter-spacing:-.01em;margin-bottom:10px;
   color:var(--ink)}
@@ -202,7 +209,7 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 #ekg{width:100%;height:70px;display:block}
 
 .marq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;overflow:hidden;
-  background:rgba(255,255,255,.015);position:relative;z-index:3}
+  background:var(--bg2);position:relative;z-index:4;transform:rotate(-1.2deg) scale(1.02);margin:18px 0 6px}
 .marq-run{display:flex;gap:38px;width:max-content;animation:mq 40s linear infinite;white-space:nowrap;will-change:transform}
 .marq span{font-family:var(--mono);font-size:.73rem;letter-spacing:.17em;text-transform:uppercase;color:var(--faint)}
 .marq span em{color:var(--red);font-style:normal;margin-right:38px}
@@ -459,6 +466,20 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
   .sigil::before,.sigil::after{animation:none}
   .status i,.slots i{animation:none}
 }
+.loadout{position:fixed;left:22px;bottom:18px;z-index:45;font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;
+  display:flex;align-items:baseline;gap:8px;pointer-events:none}
+.loadout b{color:var(--gold);font-weight:500}
+.loadout .bar{width:54px;height:1px;background:var(--line2);position:relative;top:-3px}
+.loadout .bar i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+@media(max-width:1080px){.loadout{display:none}}
+.fact{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--faint);
+  margin:-8px 0 26px;min-height:1.2em;transition:opacity .5s var(--ease)}
+.fact.swap{opacity:0}
+.createdby{display:flex;align-items:center;justify-content:center;gap:16px;padding:52px 0 8px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--bronze);position:relative;z-index:3;text-indent:.34em}
+.createdby span{width:34px;height:1px;background:var(--bronze);opacity:.6}
 </style>
 </head>
 <body>
@@ -480,6 +501,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 <div class="aur a"></div><div class="aur b"></div>
 <div class="grain"></div><div class="vig"></div>
 <div class="rail"><i id="rfill"></i><div class="dot" id="rdot"></div></div>
+<div class="loadout"><b id="loNum">0/100</b> assets loaded <span class="bar"><i id="loBar"></i></span></div>
 
 <nav id="nav">
   <div class="nav-in">
@@ -509,6 +531,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
         <h1 class="rv d1"><span class="glitch" data-text="XESTER">XESTER</span></h1>
         <div class="tw rv d1"><span class="tw-txt" id="twTxt"></span><span class="tw-cur"></span></div>
         <p class="copy rv d2">5 years scripting Roblox, and 5 years doing UI. I build the systems underneath and the screens on top, which means one less person for you to chase.</p>
+        <div class="fact rv d3" id="factLine">FACT: Light keeps the darkness at bay... mostly.</div>
         <div class="btns rv d3">
           <a href="#contact" class="btn btn-p"><span>Hire me</span></a>
           <a href="#work" class="btn btn-g"><span>View my work</span></a>
@@ -534,7 +557,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="about">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">About</div></div>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">I</span><div class="sec-title">About</div></div></div>
     <div class="about">
       <div class="rv d1"><figure class="portrait">
         <img src="Assets/me.png" alt="Xester" width="256" height="256">
@@ -558,7 +581,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 <section id="systems">
   <div class="wrap">
     <div class="rv">
-      <div class="sec-title">Systems</div>
+      <div class="sec-wrap"><span class="ghost">II</span><div class="sec-title">Systems</div></div>
       <h2>What I <span class="grad">build</span></h2>
       <p class="lede">All stuff I've actually built and shipped. If what you need isn't on here, ask anyway.</p>
     </div>
@@ -569,7 +592,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="work">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Work</div><h2>Pick a <span class="grad">build</span></h2>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">III</span><div class="sec-title">Work</div></div><h2>Pick a <span class="grad">build</span></h2>
     <p class="lede">Pick one and open the clips. More going up as I get round to recording them.</p></div>
     <div class="work-pick rv d1">
       <div class="sel" id="workSel">
@@ -583,7 +606,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="rates">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Rates</div><h2>Commission <span class="grad">rates</span></h2>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">IV</span><div class="sec-title">Rates</div></div><h2>Commission <span class="grad">rates</span></h2>
     <p class="lede">Rough starting points, not a menu. Most jobs land somewhere between these, so tell me what you need and I'll give you a real number.</p>
     <div class="toggle" id="curToggle">
       <button class="on" data-c="usd">USD</button>
@@ -616,7 +639,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="process">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Process</div><h2>How this <span class="grad">usually goes</span></h2></div>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">V</span><div class="sec-title">Process</div></div><h2>How this <span class="grad">usually goes</span></h2></div>
     <div class="proc" id="procList"></div>
     <div class="terms">
       <div class="term rv"><b>Deposit required</b>50% upfront to begin any project.</div>
@@ -629,7 +652,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="reviews">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Reviews</div><h2>What clients <span class="grad">say</span></h2>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">VI</span><div class="sec-title">Reviews</div></div><h2>What clients <span class="grad">say</span></h2>
     <p class="lede">People I've built things for.</p></div>
   </div>
   <div class="rev-wrap">
@@ -640,26 +663,28 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
 
 <section id="faq">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">FAQ</div><h2>Things people <span class="grad">always ask</span></h2></div>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">VII</span><div class="sec-title">FAQ</div></div><h2>Things people <span class="grad">always ask</span></h2></div>
     <div class="faq" id="faqList"></div>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
-    <div class="rv"><div class="sec-title">Contact</div></div>
+    <div class="rv"><div class="sec-wrap"><span class="ghost">VIII</span><div class="sec-title">Contact</div></div></div>
     <div class="cbox rv d1">
       <div class="slots"><i></i> Available for commissions</div>
-      <h2 style="max-width:640px">Let's build something that <span class="grad">doesn't break</span>.</h2>
-      <p class="lede">Tell me what you're building and what you've got to spend. I'll tell you if I'm the right person for it and what it'll cost. Usually reply within a day.</p>
+      <h2 style="max-width:640px">Glad you made it.</h2>
+      <p class="lede" style="margin-bottom:6px">Let's build something that <span class="grad">doesn't break</span>.</p>
+      <p class="lede">Tell me what you're building and what you've got to spend. I'll tell you if I'm the right person for it and what it'll cost. Usually reply same day. Never on Saturdays.</p>
       <div class="links" id="links"></div>
       <a href="#" class="btn btn-p cta-discord" style="position:relative;z-index:2"><span>Start a commission</span></a>
     </div>
   </div>
 </section>
 
+<div class="createdby"><span></span>Created by Xester<span></span></div>
 <footer><div class="foot">
-  <span>XESTER &copy; 2026 &middot; Roblox Development</span>
+  <span>XESTER &copy; 2026 &middot; Built to music, somewhere warm</span>
   <span>Last updated July 2026</span>
 </div></footer>
 
@@ -851,6 +876,7 @@ const FAQS = [
   ["Can I edit the code after?","That's the whole point. It's commented, split into modules, with the configs kept away from the logic. You or whoever you hire next can add to it without tearing it apart."],
   ["What if it breaks later?","If I wrote it and it broke, that's my problem. Message me and I'll fix it, no charge."],
   ["Can you fix a game that's already made?","Probably the most useful thing I do. Send me the place, I'll go through what the client is being trusted with, and move that back to the server without ruining how it plays."],
+  ["When do you reply?","Usually same day. Never on Saturdays. That's not a religious thing or a burnout thing, it's just the one day I don't open Discord, and it's the reason the other six days are any good."],
   ["Do you do ongoing work?","Yeah. If your game's live and you keep shipping updates, message me and we'll figure something out that works for both of us."]
 ];
 
@@ -1038,6 +1064,21 @@ function startEkg(){
 }
 let ert;
 addEventListener('resize',()=>{clearTimeout(ert);ert=setTimeout(()=>{sizeEkg();sizeLekg();},180)},{passive:true});
+
+const FACTS=[
+  "FACT: Light keeps the darkness at bay... mostly.",
+  "FACT: This site was built to music. Everything is.",
+  "FACT: Saturdays are off. That one's not negotiable.",
+  "FACT: The client is lying to you. Validate everything.",
+  "FACT: A loading bar should count something real.",
+  "FACT: Glad you made it."
+];
+let fi=0;
+const factEl=document.getElementById('factLine');
+if(factEl){setInterval(()=>{
+  factEl.classList.add('swap');
+  setTimeout(()=>{fi=(fi+1)%FACTS.length;factEl.textContent=FACTS[fi];factEl.classList.remove('swap');},500);
+},6000);}
 
 const PHRASES=[
   "UI design, built and scripted.",
@@ -1406,6 +1447,9 @@ function onScroll(){
   const y=scrollY;
   const pct=docH>0?Math.max(0,Math.min(1,y/docH)):0;
   fillEl.style.transform='scaleY('+pct+')';
+  const lo=Math.round(pct*100);
+  const loN=document.getElementById('loNum'),loB=document.getElementById('loBar');
+  if(loN){loN.textContent=lo+'/100';loB.style.transform='scaleX('+pct+')';}
   dot.style.transform='translate3d(0,'+(pct*innerHeight*0+0)+'px,0)';
   dot.style.top=(pct*100)+'%';
   nav.classList.toggle('stuck',y>40);
