@@ -317,11 +317,11 @@ pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-alig
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.7);opacity:0}}
 .media small{font-family:var(--mono);font-size:.7rem;color:var(--faint);letter-spacing:.08em}
 
-.shots{display:grid;gap:10px;grid-template-columns:1fr;width:100%;max-width:1000px;margin:0 auto}
+.shots{display:grid;gap:10px;grid-template-columns:1fr;width:100%;max-width:1000px;margin:0 auto;align-items:start}
 .shots.multi{grid-template-columns:repeat(2,1fr)}
 @media(max-width:600px){.shots.multi{grid-template-columns:1fr}}
 .shot{position:relative;display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;
-  background:var(--bg2);line-height:0}
+  background:none;line-height:0;align-self:start}
 .shot img{width:100%;height:auto;display:block;transition:transform .6s var(--ease)}
 .shot:hover img{transform:scale(1.04)}
 .shot::after{content:"Open full size";position:absolute;right:10px;bottom:10px;font-family:var(--mono);
@@ -466,7 +466,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
   .sigil::before,.sigil::after{animation:none}
   .status i,.slots i{animation:none}
 }
-.loadout{position:fixed;left:22px;bottom:18px;z-index:45;font-family:var(--mono);
+.loadout{position:fixed;left:44px;bottom:16px;z-index:45;font-family:var(--mono);
   font-size:.62rem;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;
   display:flex;align-items:baseline;gap:8px;pointer-events:none}
 .loadout b{color:var(--gold);font-weight:500}
@@ -675,7 +675,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;position:relative;z-index
       <div class="slots"><i></i> Available for commissions</div>
       <h2 style="max-width:640px">Glad you made it.</h2>
       <p class="lede" style="margin-bottom:6px">Let's build something that <span class="grad">doesn't break</span>.</p>
-      <p class="lede">Tell me what you're building and what you've got to spend. I'll tell you if I'm the right person for it and what it'll cost. Usually reply same day. Never on Saturdays.</p>
+      <p class="lede">Tell me what you're building and what you've got to spend. I'll tell you if I'm the right person for it and what it'll cost. Usually reply same day.</p>
       <div class="links" id="links"></div>
       <a href="#" class="btn btn-p cta-discord" style="position:relative;z-index:2"><span>Start a commission</span></a>
     </div>
@@ -722,22 +722,30 @@ const WORK = [
     label: "Party System",
     kind: "Core systems",
     title: "Party System",
-    lede: "Make a party, invite your friends, queue together. The annoying part is keeping everyone in the same server through the teleport, and that's the part this handles.",
+    lede: "Built for Bittersweet. The creator picks a destination, sets the party size, and can lock it behind a password. The party sits open until it fills, a departure countdown runs, and everyone teleports together. Cancel at any point and it unwinds cleanly.",
     clips: [
-      { visible:true, label:"Creating and joining a party", desc:"The invite flow from both sides.",
-        video:"", embed:"", image:"", images:[] }
+      { visible:true, label:"Creating a party", desc:"Pick the destination, set the size. Two steps and it's live.",
+        video:"", embed:"", image:"", images:["Assets/CreatingParty1.png","Assets/CreatingParty2.png"] },
+      { visible:true, label:"Password protection", desc:"Lock the party so only people you've given the password to can join.",
+        video:"", embed:"", image:"", images:["Assets/CreatingPartyWithPass.png","Assets/OpenPartyPasswordProtectedUI.png"] },
+      { visible:true, label:"Open party and countdown", desc:"The party sits open while it fills. Departure timer runs down live.",
+        video:"", embed:"", image:"", images:["Assets/OpenPartyUI.png","Assets/OpenPartyCountdownUI.png"] },
+      { visible:true, label:"Full party, ready to leave", desc:"Slots filled, countdown to departure.",
+        video:"", embed:"", image:"", images:["Assets/FullPartyUI.png","Assets/FullPartyCountdownUI.png"] },
+      { visible:true, label:"Cancelling", desc:"Creator backs out, party unwinds, nobody gets stranded.",
+        video:"", embed:"", image:"Assets/CancelledPartyUI.png", images:[] }
     ],
     breakdown: [
-      ["01","Create and invite","Players make a party and send invites. Accept, decline and timeout all handled."],
-      ["02","Live party UI","Members, leader and ready state update in real time for everyone in the party."],
-      ["03","Leader controls","Kick, promote and start the queue. Leadership passes on automatically if the leader leaves."],
-      ["04","Teleport together","The whole party lands in the same server, with nobody dropped on the way."]
+      ["01","Destination and size","Creator picks where the party is headed and how many can come."],
+      ["02","Password lock","Optional password so a party can be kept to friends without a whisper system."],
+      ["03","Open, full, counting down","Live states the whole lobby can read at a glance, with a departure timer."],
+      ["04","Clean cancellation","Cancel mid-countdown and everything resets. No ghost parties, nobody stranded."]
     ],
     arch: [
-      ["PartyService","server-side source of truth for every party"],
-      ["InviteHandler","invite, accept, decline and timeout logic"],
-      ["PartyUI","live member list and ready state on the client"],
-      ["TeleportBridge","carries the party through TeleportService as one group"]
+      ["PartyService","server-side source of truth for every party and its state"],
+      ["PartyConfig","destination, size and password rules per party"],
+      ["CountdownRunner","departure timer, synced to everyone watching"],
+      ["TeleportBridge","carries the full party through TeleportService as one group"]
     ]
   },
 
@@ -876,7 +884,7 @@ const FAQS = [
   ["Can I edit the code after?","That's the whole point. It's commented, split into modules, with the configs kept away from the logic. You or whoever you hire next can add to it without tearing it apart."],
   ["What if it breaks later?","If I wrote it and it broke, that's my problem. Message me and I'll fix it, no charge."],
   ["Can you fix a game that's already made?","Probably the most useful thing I do. Send me the place, I'll go through what the client is being trusted with, and move that back to the server without ruining how it plays."],
-  ["When do you reply?","Usually same day. Never on Saturdays. That's not a religious thing or a burnout thing, it's just the one day I don't open Discord, and it's the reason the other six days are any good."],
+  ["When do you reply?","Usually same day. Mostly never on Saturdays. That's not a religious thing or a burnout thing, it's just the one day I don't open Discord, and it's the reason the other six days are any good."],
   ["Do you do ongoing work?","Yeah. If your game's live and you keep shipping updates, message me and we'll figure something out that works for both of us."]
 ];
 
