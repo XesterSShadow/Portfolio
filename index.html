@@ -199,11 +199,14 @@ h1{font-size:clamp(2.9rem,11vw,6.4rem);font-weight:800;letter-spacing:.03em;marg
   overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.9);will-change:transform}
 .ctabs{display:flex;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .ctabs::-webkit-scrollbar{display:none}
-.ctabs button{background:none;border:0;border-right:1px solid var(--line);border-bottom:2px solid transparent;color:var(--faint);
+.ctabs button{background:none;border:0;border-right:1px solid var(--line);border-bottom:2px solid transparent;color:var(--faint);flex:0 0 auto;min-width:max-content;
   font-family:var(--mono);font-size:.68rem;padding:12px 15px;cursor:pointer;white-space:nowrap;transition:.25s}
 .ctabs button.on{color:var(--gold);border-bottom-color:var(--gold);background:rgba(224,162,78,.05)}
 pre{font-family:var(--mono);font-size:.75rem;line-height:1.8;padding:20px;overflow-x:auto;counter-reset:ln;min-height:300px}
-@media(max-width:520px){pre{font-size:.66rem;padding:14px;min-height:250px}}
+@media(max-width:520px){pre{font-size:.55rem;line-height:1.75;padding:12px 10px;min-height:210px}
+pre .l{padding-left:22px}
+pre .l::before{width:13px}
+.ctabs button{font-size:.6rem;padding:10px 11px}}
 pre .l{display:block;padding-left:30px;position:relative;counter-increment:ln}
 pre .l::before{content:counter(ln);position:absolute;left:0;width:19px;text-align:right;color:var(--faint);opacity:.45}
 .cm{color:var(--faint)}.kw{color:var(--bronze)}.fn{color:var(--gold)}.st{color:var(--parch)}.nm{color:var(--amber)}
